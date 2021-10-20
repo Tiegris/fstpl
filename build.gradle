@@ -1,5 +1,10 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.30'
+    id 'application'
+}
+
+application {
+    mainClass.set("fstpl.MainKt")
 }
 
 repositories {
@@ -11,4 +16,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.freemarker/freemarker
     implementation("org.freemarker:freemarker:2.3.31")
 
+    // https://github.com/cbeust/klaxon
+    implementation 'com.beust:klaxon:5.5'
+
+    // https://ajalt.github.io/clikt/
+    implementation("com.github.ajalt.clikt:clikt:3.2.0")
 }
