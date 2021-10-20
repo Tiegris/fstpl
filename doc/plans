@@ -1,0 +1,17 @@
+prefix minden templatezett mappának
+__fstpl
+
+sufix minden feloldott fálnak
+.tpl 
+
+
+Támogatott:
+if, for, substitution, rename folder
+
+__fstp__if__system.doGenerate__name__subst__system.name
+
+__fstp__for__i__systems__name__subst__i.name
+
+__fstp__name__subst__system.name
+
+__fstp__name__folderName

@@ -1,0 +1,14 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.30'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "junit:junit:4.13.2"
+    // https://mvnrepository.com/artifact/org.freemarker/freemarker
+    implementation("org.freemarker:freemarker:2.3.31")
+
+}
