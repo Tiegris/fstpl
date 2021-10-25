@@ -7,4 +7,8 @@ class If(model: JsonObject, file: Path) : Task(model, file) {
     override fun execute() {
         TODO("Not yet implemented")
     }
+
+    override fun collectSubTasks(): List<Task> {
+        TODO("Not yet implemented")
+    }
 }

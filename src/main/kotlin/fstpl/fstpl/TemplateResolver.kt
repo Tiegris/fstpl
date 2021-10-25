@@ -43,3 +43,13 @@ class TemplateResolver(private val model: JsonObject, private val tplRoot: Path,
 
 
 }
+
+fun Path.parseTask(model: JsonObject) : Task {
+    val name = this.name
+    return when {
+        name.startsWith("~if") -> If(model, this)
+        name.startsWith("~for") -> Loop(model, this)
+        name.startsWith()
+        else -> Copy(model, this)
+    }
+}
