@@ -25,6 +25,6 @@ fun rmdir(folder: Path) {
     }
 }
 
-fun cp(from: Path, to:Path) {
+fun cp(from: Path, to: Path) {
     Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING)
 }

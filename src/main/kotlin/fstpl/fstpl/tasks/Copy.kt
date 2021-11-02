@@ -11,7 +11,8 @@ import kotlin.io.path.isDirectory
 import kotlin.streams.toList
 
 
-class Copy(model: JsonObject, file: Path, outPath: Path, call: String, resolve: Boolean) : Task(model, file, outPath, call, resolve) {
+class Copy(model: JsonObject, file: Path, outPath: Path, call: String, resolve: Boolean) :
+    Task(model, file, outPath, call, resolve) {
 
     override fun execute(): List<Task> {
         return if (file.isDirectory()) executeDirectory() else executeFile()

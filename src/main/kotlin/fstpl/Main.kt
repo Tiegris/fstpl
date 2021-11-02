@@ -8,11 +8,8 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import fstpl.fstpl.TemplateResolver
-import fstpl.fstpl.tasks.Loop
-import fstpl.fstpl.tasks.Task
 import fstpl.util.FstplException
 import fstpl.util.extensions.isEmpty
-import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import kotlin.io.path.exists
@@ -23,7 +20,7 @@ import kotlin.system.exitProcess
 
 class Fstpl : CliktCommand() {
     private val model by option("-m", "--model", help = "Path to your json model.").required()
-    private val outputRoot by option("-o", "--output", help="Output directory.")
+    private val outputRoot by option("-o", "--output", help = "Output directory.")
     private val tplRoot by argument(help = "Path of the template directory.")
 
     override fun run() {

@@ -3,10 +3,13 @@ package fstpl.fstpl.tasks
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import fstpl.util.FstplModelException
-import fstpl.util.extensions.*
+import fstpl.util.extensions.loopKey
+import fstpl.util.extensions.read
+import fstpl.util.extensions.readName
 import java.nio.file.Path
 
-class Loop(model: JsonObject, file: Path, outPath: Path, call: String, resolve: Boolean) : Task(model, file, outPath, call, resolve) {
+class Loop(model: JsonObject, file: Path, outPath: Path, call: String, resolve: Boolean) :
+    Task(model, file, outPath, call, resolve) {
 
     override fun execute(): List<Task> {
         val key = file.loopKey()

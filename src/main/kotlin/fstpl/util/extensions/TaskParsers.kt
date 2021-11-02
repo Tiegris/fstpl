@@ -22,7 +22,7 @@ fun Path.sortTask(model: JsonObject, outPath: Path): Task {
 }
 
 fun Path.caller(): String {
-     return this.getByKeyword(call)
+    return this.getByKeyword(call)
 }
 
 fun Path.loopKey(): String {
