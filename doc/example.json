@@ -1,17 +1,29 @@
 {
-  "name": "John Doe",
-  "gender": {
-    "x": 15,
-    "y": 42,
-    "z": 53,
-    "d": 0
-  },
-  "friends": [
+  "projectName": "DemoSpringBoot",
+  "generateTests": false,
+  "dtoPackageName": "domain",
+  "controllers": [
     {
-      "asd": "321"
+      "name": "Weather",
+      "endpoints": [
+        {
+          "type": "GET",
+          "name": "read"
+        }
+      ]
     },
     {
-      "asd": "123"
+      "name": "Todo",
+      "endpoints": [
+        {
+          "type": "GET",
+          "name": "read"
+        },
+        {
+          "type": "Post",
+          "name": "create"
+        }
+      ]
     }
   ]
 }
