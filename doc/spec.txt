@@ -4,7 +4,7 @@ A célom egy olyan parancssori alkalmazás megalkotása, amivel összetett fájl
 
 Úgy képzelem el a fájlstruktúra templatezését, hogy a fájlok nevébe kerül a template, amely alapján a legalapvetőbb templating funkciókat támogatni szeretném: iteráció, elágazás, behelyettesítés
 
-A program parancssori paraméterként kapja meg a template modellt, a template fájlstruktúra gyökerét és a kimeneti mappát.
+A program parancssori paraméterként kapja meg a template modellt (JSON file), a template fájlstruktúra gyökerét és a kimeneti mappát.
 
 Példák templatezett fájlnevekre:
 
@@ -20,4 +20,4 @@ Az összes systemre létrehozza a fájlt/mappát és az adott system nevét kapj
 ~resolve_call_folderName
 A fájlok tartalmát is lehet majd templatezni, ezt a FreeMarker templating keretrendszerrel fogom megoldani. Minden if, for és resolve parancs esetén a fájlban lévő template is feloldásra kerül.
 
-folderName
+A template parancsok syntaxisa még változhat, hogy logikusabb legyen, de funkcionálisan ezeket fogja tudni.
