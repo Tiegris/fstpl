@@ -28,5 +28,13 @@ Use bash env var syntax:
 ```text
 _call_$name
 _call_${name}
-_call_prefix${name}suffix
+_call_prefix${name}.txt
+```
+
+If the name is "demo" in the model, then the previous outputs these files:
+
+```text
+demo
+demo
+prefixdemo.txt
 ```
