@@ -21,6 +21,7 @@ import kotlin.system.exitProcess
 class Fstpl : CliktCommand() {
     private val model by option("-m", "--model", help = "Path to your json model.").required()
     private val outputRoot by option("-o", "--output", help = "Output directory.")
+    private val verbose by option("-v", "--verbose", help = "Print stack trace")
     private val tplRoot by argument(help = "Path of the template directory.")
 
     override fun run() {
@@ -53,6 +54,9 @@ class Fstpl : CliktCommand() {
             TemplateResolver.resolve(model, tplRoot, outRoot)
         } catch (e: FstplException) {
             println(e.message)
+            if (verbose.toBoolean()) {
+                e.printStackTrace()
+            }
             exitProcess(1)
         }
 
