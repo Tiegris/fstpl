@@ -10,6 +10,8 @@ import com.github.ajalt.clikt.parameters.options.required
 import fstpl.fstpl.TemplateResolver
 import fstpl.fstpl.tasks.Loop
 import fstpl.fstpl.tasks.Task
+import fstpl.util.FstplException
+import fstpl.util.extensions.isEmpty
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -50,16 +52,14 @@ class Fstpl : CliktCommand() {
             println("Output directory is not empty")
             exitProcess(1)
         }
-        TemplateResolver(model, tplRoot, outRoot).resolve()
+        try {
+            TemplateResolver(model, tplRoot, outRoot).resolve()
+        } catch (e: FstplException) {
+            println(e.message)
+            exitProcess(1)
+        }
+
     }
 }
 
 fun main(args: Array<String>) = Fstpl().main(args)
-
-
-fun Path.isEmpty(): Boolean {
-    if (Files.isDirectory(this)) {
-        Files.newDirectoryStream(this).use { directory -> return !directory.iterator().hasNext() }
-    }
-    return false
-}

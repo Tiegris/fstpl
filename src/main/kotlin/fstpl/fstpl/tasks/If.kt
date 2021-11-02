@@ -1,32 +1,26 @@
 package fstpl.fstpl.tasks
 
 import com.beust.klaxon.JsonObject
-import fstpl.fstpl.TemplateResolver
-import fstpl.util.FstplException
 import fstpl.util.FstplModelException
-import fstpl.util.FstplTemplateSyntaxException
-import fstpl.util.read
+import fstpl.util.cp
+import fstpl.util.extensions.ifKey
+import fstpl.util.extensions.read
+import fstpl.util.extensions.readName
+import fstpl.util.extensions.sub
 import java.nio.file.Path
-import kotlin.io.path.name
 import kotlin.properties.Delegates
 
-class If(model: JsonObject, file: Path, outPath: Path) : Task(model, file, outPath) {
+class If(model: JsonObject, file: Path, outPath: Path, call: String, resolve: Boolean) : Task(model, file, outPath, call, resolve) {
 
-    var satisfies by Delegates.notNull<Boolean>()
+    override fun execute(): List<Task> {
+        val key = file.ifKey()
+        val value = model.read(key) as? Boolean ?: throw FstplModelException("Model element not found or not a bool value.")
 
-    override fun resolveSelf() {
-        // ~if_CONDITION_call_NAME
-        val parts = file.name.split('_')
-        if (parts.size != 4 || parts[2] != "call") {
-            throw FstplTemplateSyntaxException("Cant parse file system template IF in ${file.name}")
-        }
-        val conditionKey = parts[1]
-        satisfies = model.read(conditionKey) as? Boolean ?: throw FstplModelException("Model element not found or not a bool value.")
-        val call = parts[3]
-        if (satisfies) {
-
-        }
+        val name = model.readName(call)
+        return if (value)
+            listOf(Copy(model, file, outPath, name, resolve))
+        else
+            listOf()
     }
-
 
 }

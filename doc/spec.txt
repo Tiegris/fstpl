@@ -11,7 +11,7 @@ Példák templatezett fájlnevekre:
 ~if_system.doGenerate_call_$system.name
 Ha a modell system.doGenerate propertyje true, akkor generálja csak le a fájlt/mappát és a system.name értéke szerint fogja elnevezni a kimenetben.
 
-~for_i_systems_call_$i.name
+~loop_systems_call_$name
 Az összes systemre létrehozza a fájlt/mappát és az adott system nevét kapja a mappa/fájl (természetes rekurzívan az almappákra/fájlokra is vonatkozik és azok esetén a modell az elvárt módon az i lesz már)
 
 ~rename_call_$system.name

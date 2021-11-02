@@ -1,15 +1,34 @@
 package fstpl.fstpl.tasks
 
 import com.beust.klaxon.JsonObject
+import fstpl.util.cp
+import fstpl.util.extensions.sortTask
+import fstpl.util.extensions.sub
+import fstpl.util.mkdir
 import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.StandardCopyOption
+import kotlin.io.path.isDirectory
+import kotlin.streams.toList
 
-//The most basic Task, it copies the file/folder
-class Copy(model: JsonObject, file: Path, outPath: Path) : Task(model, file, outPath) {
 
-    override fun resolveSelf() {
-        Files.copy(file, outBase, StandardCopyOption.REPLACE_EXISTING)
+class Copy(model: JsonObject, file: Path, outPath: Path, call: String, resolve: Boolean) : Task(model, file, outPath, call, resolve) {
+
+    override fun execute(): List<Task> {
+        return if (file.isDirectory()) executeDirectory() else executeFile()
+    }
+
+    private fun executeDirectory(): List<Task> {
+        mkdir(outPath.sub(call))
+        return Files.list(file).map { x -> x.sortTask(model, outPath.sub(call)) }.toList()
+    }
+
+    private fun executeFile(): List<Task> {
+        if (resolve)
+            resolve(file, outPath.sub(call))
+        else
+            cp(file, outPath.sub(call))
+
+        return listOf()
     }
 
 }
