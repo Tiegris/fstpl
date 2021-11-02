@@ -22,15 +22,15 @@ fun Path.sortTask(model: JsonObject, outPath: Path): Task {
 }
 
 fun Path.caller(): String {
-    return this.getByKeyword(call)
+    return this.name.getByKeyword(call)
 }
 
 fun Path.loopKey(): String {
-    return this.getByKeyword("~loop_").dropCall()
+    return this.name.getByKeyword("~loop_").dropCall()
 }
 
 fun Path.ifKey(): String {
-    return this.getByKeyword("~if").dropCall()
+    return this.name.getByKeyword("~if_").dropCall()
 }
 
 private fun String.dropCall(): String {
@@ -38,8 +38,7 @@ private fun String.dropCall(): String {
     return this.dropLast(this.length - pos)
 }
 
-private fun Path.getByKeyword(keyword: String): String {
-    val name = this.name
-    val pos = name.indexOf(keyword)
-    return name.takeLast(name.length - pos - keyword.length)
+private fun String.getByKeyword(keyword: String): String {
+    val pos = this.indexOf(keyword)
+    return this.takeLast(this.length - pos - keyword.length)
 }

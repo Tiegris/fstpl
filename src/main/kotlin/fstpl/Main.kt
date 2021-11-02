@@ -5,6 +5,7 @@ import com.beust.klaxon.KlaxonException
 import com.beust.klaxon.Parser.Companion.default
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
+import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import fstpl.fstpl.TemplateResolver
@@ -21,7 +22,7 @@ import kotlin.system.exitProcess
 class Fstpl : CliktCommand() {
     private val model by option("-m", "--model", help = "Path to your json model.").required()
     private val outputRoot by option("-o", "--output", help = "Output directory.")
-    private val verbose by option("-v", "--verbose", help = "Print stack trace")
+    private val verbose by option("-v", "--verbose", help = "Print stack trace").flag(default = false)
     private val tplRoot by argument(help = "Path of the template directory.")
 
     override fun run() {
@@ -35,6 +36,9 @@ class Fstpl : CliktCommand() {
                 default().parse(model) as JsonObject
             } catch (e: KlaxonException) {
                 println("Can't parse json: ${e.message}!")
+                if (verbose) {
+                    e.printStackTrace()
+                }
                 exitProcess(1)
             }
         val outRoot: Path = Paths.get(outputRoot ?: "${tplRoot.parent.pathString}/output")
@@ -54,7 +58,7 @@ class Fstpl : CliktCommand() {
             TemplateResolver.resolve(model, tplRoot, outRoot)
         } catch (e: FstplException) {
             println(e.message)
-            if (verbose.toBoolean()) {
+            if (verbose) {
                 e.printStackTrace()
             }
             exitProcess(1)
