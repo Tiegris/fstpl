@@ -53,7 +53,7 @@ class Fstpl : CliktCommand() {
             exitProcess(1)
         }
         try {
-            TemplateResolver(model, tplRoot, outRoot).resolve()
+            TemplateResolver.resolve(model, tplRoot, outRoot)
         } catch (e: FstplException) {
             println(e.message)
             exitProcess(1)

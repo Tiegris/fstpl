@@ -10,27 +10,20 @@ import java.nio.file.Path
 import java.util.*
 import kotlin.streams.toList
 
-class TemplateResolver(private val model: JsonObject, private val tplRoot: Path, private val outRoot: Path) {
-    private val tasks: Queue<Task> = LinkedList()
+object TemplateResolver {
+    val engine: Configuration = Configuration()
+    lateinit var tplRoot: Path
 
-    companion object {
-        val engine: Configuration = Configuration()
-        lateinit var tplRoot: Path
-    }
+    fun resolve(model: JsonObject, tplRoot: Path, outRoot: Path) {
+        this.tplRoot = tplRoot
+        engine.setDirectoryForTemplateLoading(this.tplRoot.toFile())
+        val tasks: Queue<Task> = LinkedList()
 
-    init {
-        engine.setDirectoryForTemplateLoading(tplRoot.toFile())
-        Companion.tplRoot = tplRoot
-    }
-
-    fun resolve() {
-        tasks += Files.list(tplRoot).map { x -> x.sortTask(model, outRoot) }.toList()
+        tasks += Files.list(this.tplRoot).map { x -> x.sortTask(model, outRoot) }.toList()
         mkdir(outRoot)
 
         while (tasks.isNotEmpty()) {
             tasks += tasks.poll().execute()
         }
     }
-
-
 }
