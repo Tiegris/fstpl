@@ -46,16 +46,6 @@ private fun String.separate(): Triple<String, String, String> {
     }
 }
 
-private fun String.dropCall(): String {
-    val pos = this.indexOf(call)
-    return this.dropLast(this.length - pos)
-}
-
-private fun String.getByKeyword(keyword: String): String {
-    val pos = this.indexOf(keyword)
-    return this.takeLast(this.length - pos - keyword.length)
-}
-
 private fun JsonObject.read(split: List<String>): Any? {
     val ret = if (split.size >= 2) {
         (this[split.first()] as JsonObject).read(split.tail())

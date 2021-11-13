@@ -11,7 +11,7 @@ class If(model: JsonObject, file: Path, outPath: Path, call: String, resolve: Bo
     Task(model, file, outPath, call, resolve) {
 
     override fun execute(): List<Task> {
-        val key = file.ifKey()
+        val key = file.ifKey
         val value =
             model.read(key) as? Boolean ?: throw FstplModelException("Model element not found or not a bool value.")
 

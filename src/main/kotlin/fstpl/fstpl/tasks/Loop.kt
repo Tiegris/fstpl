@@ -12,7 +12,7 @@ class Loop(model: JsonObject, file: Path, outPath: Path, call: String, resolve: 
     Task(model, file, outPath, call, resolve) {
 
     override fun execute(): List<Task> {
-        val key = file.loopKey()
+        val key = file.loopKey
         val elements = model.read(key) as? JsonArray<*> ?: throw FstplModelException("Model element not an array.")
 
         val tasks = mutableListOf<Task>()
